@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MyObjectsController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,6 @@ Route::group(['prefix' => 'objects', 'as' => 'objects.'], function () {
     Route::delete('{object}', [MyObjectsController::class, 'delete'])->name('delete');
     Route::get('{object}', [MyObjectsController::class, 'show'])->name('show');
 });
+
+Route::get('', [HomeController::class, 'index'])->name('index');
+Route::post('/send-request', [HomeController::class, 'sendRequest'])->name('send-request');
