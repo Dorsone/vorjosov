@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\MyObjectsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'events', 'as' => 'events.'], function () {
+    Route::get('', [EventsController::class, 'index'])->name('index');
+    Route::delete('{event}', [EventsController::class, 'delete'])->name('delete');
+    Route::get('{event}', [EventsController::class, 'show'])->name('show');
+});
+
+Route::group(['prefix' => 'objects', 'as' => 'objects.'], function () {
+    Route::get('', [MyObjectsController::class, 'index'])->name('index');
+    Route::delete('{object}', [MyObjectsController::class, 'delete'])->name('delete');
+    Route::get('{object}', [MyObjectsController::class, 'show'])->name('show');
 });
