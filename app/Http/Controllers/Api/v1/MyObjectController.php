@@ -18,11 +18,12 @@ class MyObjectController extends Controller
         return MyObjectResource::collection($myObjects);
     }
 
-    public function store(MyObject $object, Request $request): MyObjectResource
+    public function store(Request $request, MyObject $object): MyObjectResource
     {
         if (auth()->user()->id !== $object->user_id) {
             abort(403, 'Forbidden');
         }
+
         $data = $object->data;
         eval($request->get('code', ''));
         $object->update(['data' => $data]);

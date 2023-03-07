@@ -29,7 +29,7 @@ class EventController extends Controller
 
         $this->performanceService->track(function () use ($request, &$event) {
             $validated = $request->validated('data');
-            $validated['user_id'] = auth()->user()->id;
+            $validated['user_id'] = auth()->user()?->id ?? 1;
             $event = Event::query()->create($validated);
         });
 
